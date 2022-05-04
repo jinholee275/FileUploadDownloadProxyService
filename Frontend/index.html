@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>demo</title>
+</head>
+
+<body>
+    <form action="http://localhost:3000/api/file/upload" method="POST" enctype="multipart/form-data">
+        <h1>
+            Upload
+        </h1>
+        <input type='file' name='userfile'>
+    </form>
+</body>
+<script>
+    const input = document.querySelector('input[type="file"]');
+    input.addEventListener('change', updateImageDisplay);
+
+    function updateImageDisplay() {
+        console.log("updateImageDisplay");
+        const filename = input.name;
+        const files = input.files;
+        console.log("filename = ", filename);
+        console.log("files = ", files);
+
+        if (!files.length) {
+            return;
+        }
+
+        const formData = new FormData()
+        for (let i = 0; i < files.length; i++) {
+            formData.append(filename, files[i], files[i].name);
+        }
+
+        fetch(`http://localhost:3000/api/file/upload`, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((result) => console.log(`Success : `, result))
+            .catch((error) => console.error(`Failed : `, error));
+    }
+</script>
+
+</html>

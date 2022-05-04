@@ -1,0 +1,18 @@
+POST http://localhost:3000/api/file/upload
+Content-Type: multipart/form-data; boundary=0xLhTaLbOkNdArZ
+
+--0xLhTaLbOkNdArZ
+Content-Disposition: form-data; name="userfile"; filename="test.txt"
+Content-Type: application/octet-stream
+
+Hello, world!
+--0xLhTaLbOkNdArZ--
+
+### 
+
+POST http://localhost:3000/api/file/download
+Content-Type: application/json
+
+{
+    "path": "test.txt"
+}
